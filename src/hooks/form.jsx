@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
+
+const AppContext = createContext();
 
 const useForm = (callback, defaultValues={}) => {
 
@@ -41,4 +43,30 @@ const useForm = (callback, defaultValues={}) => {
   };
 };
 
-export default useForm;
+const AppProvider = ({ children }) => {
+  const [showCompleted, setShowCompleted] = useState(false);
+  const [sortOrder, setSortOrder] = useState('difficulty');
+
+  const toggleShowCompleted = () => {
+    setShowCompleted(!showCompleted);
+  };
+
+  const changeSortOrder = (order) => {
+    setSortOrder(order);
+  };
+
+  return (
+    <AppContext.Provider
+      value={{
+        showCompleted,
+        toggleShowCompleted,
+        sortOrder,
+        changeSortOrder,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+
+export { AppContext, AppProvider, useForm };
