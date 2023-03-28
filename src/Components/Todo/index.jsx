@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {useForm} from '../../hooks/form';
-
+import useForm from '../../hooks/form';
 
 import { v4 as uuid } from 'uuid';
+import List from '../List';
 
 const Todo = () => {
 
@@ -20,16 +20,16 @@ const Todo = () => {
     setList([...list, item]);
   }
 
-  // function deleteItem(id) {
-  //   const items = list.filter( item => item.id !== id );
-  //   setList(items);
-  // }
+  function deleteItem(id) {
+    const items = list.filter(item => item.id !== id);
+    setList(items);
+  }
 
   function toggleComplete(id) {
 
-    const items = list.map( item => {
-      if ( item.id === id ) {
-        item.complete = ! item.complete;
+    const items = list.map(item => {
+      if (item.id === id) {
+        item.complete = !item.complete;
       }
       return item;
     });
@@ -45,7 +45,7 @@ const Todo = () => {
     // linter will want 'incomplete' added to dependency array unnecessarily. 
     // disable code used to avoid linter warning 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);  
+  }, [list]);
 
   return (
     <>
@@ -77,15 +77,10 @@ const Todo = () => {
         </label>
       </form>
 
-      {list.map(item => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
-      ))}
+      <List
+        list={list}
+        toggleComplete={toggleComplete}
+      />
 
     </>
   );
