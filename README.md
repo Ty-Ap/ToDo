@@ -23,10 +23,10 @@ In Phase 1, we’re going to perform some refactoring of a Todo application buil
 <!-- TODO -->
 
 Properly modularize the application into separate components, note the proposed file structure below.
-Implement the Context API to make some basic application settings available to components.
-Show three items by default.
-Hide completed items by default.
-Add the sort word ‘difficulty’ by default.
+
 Style the application using the Mantine Component API{target:_blank}.
 NOTE: The expectation to style this entire component in one day is likely unrealistic. The recommendation is to implement the required functionality, then systematically begin styling with Mantine. Match the comp image(s) as closely as possible. 80% of the design work will likely take 20% of your time. By the end of the week, being mostly there with style is the goal!
+
 To Do with Pagination
+
+pagination went poorly.
