@@ -14,7 +14,7 @@ Unit Tests: npm run test
 
 ## UML
 
-![uml](./assets/class-31-401d59.png)
+![uml](./assets/class-33-401d51.png)
 
 ### Phase 1 Requirements
 
