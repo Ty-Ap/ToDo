@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { SettingsContext } from '../../Context/index';
+import { SettingsContext } from '../../Context/Settings/index';
 import { Pagination } from '@mantine/core';
 
 

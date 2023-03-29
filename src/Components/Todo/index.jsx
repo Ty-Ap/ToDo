@@ -4,6 +4,16 @@ import useForm from '../../hooks/form';
 import { v4 as uuid } from 'uuid';
 import List from '../List';
 
+
+// const useStyles = createStyles((theme)=>{
+//   h1: {
+//     backgroundColor: theme.colors.gray[8],
+//     color: theme.colors.blue[8],
+//     width: '80%'
+//     height: '80%'
+//   }
+// })
+
 const Todo = () => {
 
   const [defaultValues] = useState({

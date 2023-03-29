@@ -11,7 +11,10 @@ const SettingsProvider = ({children}) => {
 
   return (
     <SettingsContext.Provider value={values}>
+      <h2>Settings</h2>
+      
       {children}
+      {/* <button onClick={(e)=>{if(!setShowCompleted){setShowCompleted(true);}}}>Show Complete? : </button> */}
     </SettingsContext.Provider>
   )
 
