@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form';
+import { Button, Card, Grid, Slider, Text, TextInput } from '@mantine/core';
 
 import { v4 as uuid } from 'uuid';
 import List from '../List';
+import useHeaderStyle from '../../Themes/Themes';
 
 
 // const useStyles = createStyles((theme)=>{
@@ -15,6 +17,7 @@ import List from '../List';
 // })
 
 const Todo = () => {
+  const {classes} =useHeaderStyle();
 
   const [defaultValues] = useState({
     difficulty: 4,
@@ -58,42 +61,53 @@ const Todo = () => {
   }, [list]);
 
   return (
-    <>
-      <header data-testid="todo-header">
-        <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
-      </header>
+  <>
+  <h1 data-testid="todo-h1" className={classes.h1}>To Do List: {incomplete} items pending</h1>
+  <Grid style={{ width: '80%', margin: 'auto' }}>
+    <Grid.Col xs={12} sm={4}>
+      <Card withBorder>
+        <form onSubmit={handleSubmit}>
 
-      <form onSubmit={handleSubmit}>
+          <h2>Add To Do Item</h2>
+          <TextInput
+            placeholder="Item Details"
+            label="To Do Item"
+            onChange={handleChange}
+            name="text"
+          />
 
-        <h2>Add To Do Item</h2>
+          <TextInput
+            placeholder="Assignee Name"
+            label="Assigned To"
+            onChange={handleChange}
+            name="assignee"
+          />
 
-        <label>
-          <span>To Do Item</span>
-          <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-        </label>
+          <Text>Difficulty</Text>
+          <Slider
+            onChange={handleChange}
+            defaultValue={defaultValues.difficulty}
+            min={1}
+            max={5}
+            step={1}
+          />
 
-        <label>
-          <span>Assigned To</span>
-          <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-        </label>
+          <Button mt="sm" type="submit">Add Item</Button>
+        </form>
+      </Card>
+    </Grid.Col>
 
-        <label>
-          <span>Difficulty</span>
-          <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
-        </label>
-
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
-      </form>
-
+    <Grid.Col xs={12} sm={8}>
       <List
         list={list}
         toggleComplete={toggleComplete}
+        deleteItem={deleteItem}
       />
+    </Grid.Col>
 
-    </>
-  );
+  </Grid>
+</>
+);
 };
 
 export default Todo;

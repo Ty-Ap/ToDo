@@ -1,0 +1,15 @@
+.mantine-card {
+  background-color: #6aa9e9;
+  border: 1px solid #3f89d4;
+}
+
+.mantine-card-section {
+  background-color: #ffffff;
+  border-bottom: 1px solid #3f89d4;
+}
+
+.mantine-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

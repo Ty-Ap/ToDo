@@ -1,23 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+// create context ---------
 export const SettingsContext = React.createContext();
 
-const SettingsProvider = ({children}) => {
-  const [pageItems, setPageItems] = useState(3);
-  const [showCompleted, setShowCompleted] = useState(false);
+// create provider--------
+const SettingsProvider = ({ children }) => {
+  // 3 pieces in state:  sort, showComplete, displayCount
+  const [displayCount, setDisplayCount] = useState(3);
+  const [showComplete, setShowComplete] = useState(false);
   const [sort, setSort] = useState('difficulty');
 
-  const values = {pageItems, showCompleted, sort, setSort, setPageItems, setShowCompleted};
+  const saveLocally = () => {
+    localStorage.setItem('todo-1', JSON.stringify({ displayCount, showComplete, sort }))
+  }
+
+  useEffect(() => {
+    let storage = JSON.parse(localStorage.getItem('todo-1'));
+    if (storage) {
+      setShowComplete(storage.showComplete);
+      setDisplayCount(storage.displayCount);
+      setSort(storage.sort);
+    }
+  }, []);
+
+
+  const values = {
+    displayCount,
+    showComplete,
+    sort,
+    setShowComplete,
+    setDisplayCount,
+    setSort,
+    saveLocally
+  }
 
   return (
     <SettingsContext.Provider value={values}>
-      <h2>Settings</h2>
-      
       {children}
-      {/* <button onClick={(e)=>{if(!setShowCompleted){setShowCompleted(true);}}}>Show Complete? : </button> */}
     </SettingsContext.Provider>
   )
 
-}
+};
 
 export default SettingsProvider;

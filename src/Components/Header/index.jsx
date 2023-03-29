@@ -1,22 +1,27 @@
-import React from 'react';
+
 import { Link } from 'react-router-dom';
+import { Header, Navbar, Group } from '@mantine/core';
+import useHeaderStyle from '../../Themes/Themes';
 
-const Header = (props) => {
+
+
+const HeaderComponent = () => {
+  const { classes } = useHeaderStyle();
+
   return (
-    <header>
-      <h1>TODO</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/settings">Settings</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <Header>
+      <Navbar className={classes.navbar}>
+      <Group>
+        <Link className={classes.link} to="/" default >
+          Home
+        </Link>
+        <Link className={classes.link} to="/settings">
+          Settings
+        </Link>
+      </Group>
+      </Navbar>
+    </Header>
   );
-}
+};
 
-export default Header;
+export default HeaderComponent;
