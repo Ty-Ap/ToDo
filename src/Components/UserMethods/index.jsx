@@ -1,37 +1,64 @@
 import { AuthContext } from "../../Context/Auth";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 
-const AuthMethod =()=>{
-  const {login, logout, isLoggedIn} = useContext(AuthContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const AuthMethod = () => {
+  const { login, logout } = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("authToken"));
+  const usernameInput = useRef();
+  const passwordInput = useRef();
 
-  const handleAuthSubmit = (e)=>{
-    e.preventDefault();
-    login(username, password);
+  useEffect(() => {
+    const updateLoginStatus = () => {
+      setIsLoggedIn(!!Cookies.get("authToken"));
+    };
 
-    e.target.reset();
-  }
+    window.addEventListener("loginStatusChanged", updateLoginStatus);
+
+    return () => {
+      window.removeEventListener("loginStatusChanged", updateLoginStatus);
+    };
+  }, []);
+
+  const user = isLoggedIn ? jwt_decode(Cookies.get("authToken")) : null;
+
+  const handleAuthSubmit = () => {
+    login(usernameInput.current.value, passwordInput.current.value);
+    usernameInput.current.value = "";
+    passwordInput.current.value = "";
+  };
+
+  const handleButtonClick = () => {
+    if (isLoggedIn) {
+      logout();
+    } else {
+      handleAuthSubmit();
+    }
+  };
 
   return (
     <>
-    <div>
-      <form onSubmit={handleAuthSubmit}>
-        <label>username: 
-          <input onChange={(e)=> setUsername(e.target.value)}/>
-        </label>
-        <label >password: 
-          <input onChange={(e)=> setPassword(e.target.value)}/>
-        </label>
-        <button type='submit'>Login</button>
-        
+      {isLoggedIn && <span>Welcome, {user.username}! </span>}
+      <form onSubmit={(e) => e.preventDefault()}>
+        {!isLoggedIn && (
+          <>
+            <label>
+              Username:
+              <input name="username" ref={usernameInput} />
+            </label>
+            <label>
+              Password:
+              <input name="password" type="password" ref={passwordInput} />
+            </label>
+          </>
+        )}
+        <button type="button" onClick={handleButtonClick}>
+          {isLoggedIn ? "Logout" : "Login"}
+        </button>
       </form>
-
-      <button onCLick={logout}>Logout</button>
-    </div>
     </>
-  )
-}
-
+  );
+};
 
 export default AuthMethod;
