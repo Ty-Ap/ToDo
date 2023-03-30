@@ -8,6 +8,7 @@ const AuthMethod = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get("authToken"));
   const usernameInput = useRef();
   const passwordInput = useRef();
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
     const updateLoginStatus = () => {
@@ -21,10 +22,11 @@ const AuthMethod = () => {
     };
   }, []);
 
-  const user = isLoggedIn ? jwt_decode(Cookies.get("authToken")) : null;
-
   const handleAuthSubmit = () => {
-    login(usernameInput.current.value, passwordInput.current.value);
+    const usernameValue = usernameInput.current.value;
+    const passwordValue = passwordInput.current.value;
+    setUsername(usernameValue);
+    login(usernameValue, passwordValue);
     usernameInput.current.value = "";
     passwordInput.current.value = "";
   };
@@ -32,6 +34,7 @@ const AuthMethod = () => {
   const handleButtonClick = () => {
     if (isLoggedIn) {
       logout();
+      setUsername('');
     } else {
       handleAuthSubmit();
     }
@@ -39,7 +42,7 @@ const AuthMethod = () => {
 
   return (
     <>
-      {isLoggedIn && <span>Welcome, {user.username}! </span>}
+      {isLoggedIn && <span>Welcome, {username}! </span>}
       <form onSubmit={(e) => e.preventDefault()}>
         {!isLoggedIn && (
           <>
@@ -60,5 +63,6 @@ const AuthMethod = () => {
     </>
   );
 };
+
 
 export default AuthMethod;
