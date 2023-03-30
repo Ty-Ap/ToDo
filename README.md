@@ -16,17 +16,25 @@ Unit Tests: npm run test
 
 ![uml](./assets/class-33-401d51.png)
 
-### Phase 1 Requirements
+### Phase 1
 
-In Phase 1, we’re going to perform some refactoring of a Todo application built by another team. This application mixes application state and user settings at the top level and passes things around. It was a good proof of concept, but we need to make this production ready.
+ Incorporate configuration settings to the application.
+
+### Phase 2
+
+ Allow user to make changes to settings.
+
+## Phase 3
+
+ Allow user to login and logout.
+
+### Phase 4
+
+ link site with API for user and list management.
 
 <!-- TODO -->
 
-Properly modularize the application into separate components, note the proposed file structure below.
+adjust signin/signout to route to api
+get proof of life from api
+incorporate list component into api
 
-Style the application using the Mantine Component API{target:_blank}.
-NOTE: The expectation to style this entire component in one day is likely unrealistic. The recommendation is to implement the required functionality, then systematically begin styling with Mantine. Match the comp image(s) as closely as possible. 80% of the design work will likely take 20% of your time. By the end of the week, being mostly there with style is the goal!
-
-To Do with Pagination
-
-pagination went poorly.
